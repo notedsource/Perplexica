@@ -1,7 +1,7 @@
 import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
 import { ChatOllama } from '@langchain/community/chat_models/ollama';
-import { VertexAI } from "@langchain/google-vertexai";
-import { GoogleVertexAIEmbeddings } from "@langchain/community/embeddings/googlevertexai";
+import { VertexAI } from '@langchain/google-vertexai';
+import { GoogleVertexAIEmbeddings } from '@langchain/community/embeddings/googlevertexai';
 import { OllamaEmbeddings } from '@langchain/community/embeddings/ollama';
 import { HuggingFaceTransformersEmbeddings } from './huggingfaceTransformer';
 import { hasGCPCredentials } from '../auth';
@@ -191,7 +191,7 @@ export const getAvailableEmbeddingModelProviders = async () => {
     try {
       models['vertexai'] = {
         'Text Gecko default': new GoogleVertexAIEmbeddings(),
-      }
+      };
     } catch (err) {
       logger.error(`Error loading VertexAI embeddings: ${err}`);
     }

@@ -1,5 +1,6 @@
 import { auth } from 'google-auth-library';
-import { getAccessKey } from './config';
+import { getAccessKey, useJWT } from './config';
+import jwt from 'jsonwebtoken';
 
 export const requireAccessKey = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -14,9 +15,27 @@ export const requireAccessKey = (req, res, next) => {
   }
 };
 
+export const verifyJWT = (token, accessKey) => {
+  try {
+    const verified = jwt.verify(token, accessKey);
+    const expAccessToken = verified.exp; // in seconds
+    const now = Math.floor(Date.now() / 1000); // in seconds
+    const remaining = expAccessToken - now; // in seconds
+    return Boolean(remaining > 0);
+  } catch (e) {
+    return false;
+  }
+};
+
 export const checkAccessKey = (authHeader) => {
   const token = authHeader.split(' ')[1];
-  return Boolean(authHeader && token === getAccessKey());
+  const accessKey = getAccessKey();
+
+  if (useJWT) {
+    return verifyJWT(token, accessKey);
+  }
+
+  return Boolean(authHeader && token === accessKey);
 };
 
 export const hasGCPCredentials = async () => {

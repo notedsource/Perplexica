@@ -35,7 +35,8 @@ show_config:
 	&& echo $(SEARCH_PORT) \
 	&& echo $(BACKEND_PORT) \
 	&& echo $(OPENAI) \
-	&& echo $(SUPER_SECRET_KEY)
+	&& echo $(SUPER_SECRET_KEY) \
+	&& export TF_VAR_use_jwt=$(USE_JWT)
 
 .PHONY: docker-build-push-searxng
 docker-build-push-searxng:
@@ -74,6 +75,7 @@ deploy:
 	&& export TF_VAR_backend_port=$(BACKEND_PORT) \
 	&& export TF_VAR_open_ai=$(OPENAI) \
 	&& export TF_VAR_secret_key=$(SUPER_SECRET_KEY) \
+	&& export TF_VAR_use_jwt=$(USE_JWT) \
 	&& terraform apply
 
 
@@ -90,6 +92,7 @@ teardown:
 	&& export TF_VAR_backend_port=$(BACKEND_PORT) \
 	&& export TF_VAR_open_ai=$(OPENAI) \
 	&& export TF_VAR_secret_key=$(SUPER_SECRET_KEY) \
+	&& export TF_VAR_use_jwt=$(USE_JWT) \
 	&& terraform destroy
 
 

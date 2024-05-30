@@ -16,8 +16,8 @@ services:
       args:
         - SEARXNG_API_URL=null
     volumes:
-      - "/Volumes/keys/headllamp/keys/:/var/keys/"
-      - "${GOOGLE_APPLICATION_CREDENTIALS}:/var/keys/gcp_service_account.json"
+      - '/Volumes/keys/headllamp/keys/:/var/keys/'
+      - '${GOOGLE_APPLICATION_CREDENTIALS}:/var/keys/gcp_service_account.json'
     environment:
       SEARXNG_API_URL: 'http://searxng:8080'
       SUPER_SECRET_KEY: ${SUPER_SECRET_KEY}

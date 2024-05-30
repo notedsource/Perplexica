@@ -9,6 +9,7 @@ interface Config {
     PORT: number;
     SIMILARITY_MEASURE: string;
     SUPER_SECRET_KEY: string;
+    USE_JWT: boolean;
   };
   API_KEYS: {
     OPENAI: string;
@@ -35,6 +36,7 @@ const loadEnv = () => {
       PORT: Number(process.env.PORT),
       SIMILARITY_MEASURE: process.env.SIMILARITY_MEASURE,
       SUPER_SECRET_KEY: process.env.SUPER_SECRET_KEY,
+      USE_JWT: Boolean(process.env.USE_JWT),
     },
     API_KEYS: {
       OPENAI: process.env.OPENAI,
@@ -51,6 +53,9 @@ export const getPort = () => loadConfig().GENERAL.PORT;
 
 export const getAccessKey = () =>
   loadEnv().GENERAL.SUPER_SECRET_KEY || loadConfig().GENERAL.SUPER_SECRET_KEY;
+
+export const useJWT = () =>
+  loadEnv().GENERAL.USE_JWT || loadConfig().GENERAL.USE_JWT;
 
 export const getSimilarityMeasure = () =>
   loadConfig().GENERAL.SIMILARITY_MEASURE;

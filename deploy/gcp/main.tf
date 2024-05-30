@@ -124,26 +124,31 @@ resource "kubernetes_deployment" "backend" {
           port {
             container_port = var.backend_port
           }
-        env {
-          # searxng service ip
-          name = "SEARXNG_API_URL"
-          value =  "http://${kubernetes_service.searxng_service.status[0].load_balancer[0].ingress[0].ip}:${var.search_port}" 
-        }
-        env {
-          # openai key
-          name = "OPENAI"
-          value = var.open_ai
-        }
-        env {
-          # port
-          name = "PORT"
-          value = var.backend_port 
-        }
-        env {
-          # Access key for backend
-          name = "SUPER_SECRET_KEY"
-          value = var.secret_key
-        }
+          env {
+            # searxng service ip
+            name = "SEARXNG_API_URL"
+            value =  "http://${kubernetes_service.searxng_service.status[0].load_balancer[0].ingress[0].ip}:${var.search_port}" 
+          }
+          env {
+            # openai key
+            name = "OPENAI"
+            value = var.open_ai
+          }
+          env {
+            # port
+            name = "PORT"
+            value = var.backend_port 
+          }
+          env {
+            # Access key for backend
+            name = "SUPER_SECRET_KEY"
+            value = var.secret_key
+          }
+          env {
+            # Access key for backend
+            name = "USE_JWT"
+            value = var.use_jwt
+          }
         }
       }
     }
@@ -215,6 +220,11 @@ variable "open_ai" {
 
 variable "secret_key" {
   description = "Access key to secure backend endpoints"
+  type        = string
+}
+
+variable "use_jwt" {
+  description = "Use HS256 signed JWTs with exp. for auth"
   type        = string
 }
 
