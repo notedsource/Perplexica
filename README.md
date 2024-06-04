@@ -1,5 +1,7 @@
 # 🚀 Perplexica - GCP runbooks<!-- omit in toc -->
 
+NOTE: THIS BRANCH IS FOR DOCUMENTATION ONLY, DO NOT MERGE.
+
 ## Table of Contents <!-- omit in toc -->
 
 - [Deployments](./runbooks/deployments.MD)
